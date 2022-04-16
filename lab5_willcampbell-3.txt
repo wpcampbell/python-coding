@@ -1,0 +1,49 @@
+TASK 1:
+
+A)8960 meters by 7170 meters
+
+Size is 1792, 1434
+Pixel Size = (5.000000000000000,-5.000000000000000)
+LENGTHUNIT["metre",1]],
+
+B) 
+image resolution = 100 pixels/cm
+pixel size = 5 m
+
+distance per pixel= 100m * 5m = 500m
+
+1m=100cm
+
+500m*100cm= 50,000 cm
+
+1 cm on image = 50,000 cm on the ground
+(cm's cancel out)
+
+map scale = 1:50,000
+
+TASK 2:
+
+A) gdalinfo independence.dem > output.txt #finds all possible information about independence.dem and prints it to a new file
+
+B) gdalwarp -t_srs NAD83 independence.dem  independence-NAD83.dem #reprojects independence.dem to the NAD83 srs and creates a new file for it
+
+TASK 3:
+
+A) gdaldem hillshade -z 2 independence-NAD83.dem independence-NAD83-shaderel.dem #creates a shaded relief map with independence-NAD83.dem with a -z factor of 2
+
+B) gdal_contour independence-NAD83.dem independence-NAD83-contour.shp -i 10.0 #creates a contour map with independence-NAD83.dem with a contour interval of 10 meters
+
+TASK 4:
+
+A) Approx. 34317 meters by 35921 meters; ogrinfo bldg_clip_dist.shp -al -so #summarizes the information about the shapefile and its layers
+
+B) No because the whitespace is included in the area of the bounding box so you would need a sum of the area of the polygons to get an accurate area of the features
+
+TASK 5:
+
+41; -sql "select COUNT(distinct lu) FROM lulc_clip_dist" lulc_clip_dist.shp #gets the count of the distinct land use categories from the lulc_clip_dist shapefile
+
+TASK 6: 
+
+ogr2ogr -f "KML" %1.kml %1.shp #converts any shapefile name given to a kml file
+
